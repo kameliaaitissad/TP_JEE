@@ -71,15 +71,13 @@ public class Vehicule {
 		this.dates = dates;
 	}
 
-	
-	
-	
-	
-	
 		
 	@Override
 	public String toString() {
-		return "Vehicule [plateNumber=" + plateNumber + ", brand=" + brand + ", price=" + price + "]";
+		return "Vehicule "
+				+ "[plateNumber=" + plateNumber + ", "
+				+ "brand=" + brand + ", "
+				+ "price=" + price + "]\n";
 	}
 
 }

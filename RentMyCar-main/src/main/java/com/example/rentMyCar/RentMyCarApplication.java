@@ -16,7 +16,7 @@ public class RentMyCarApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(PersonRepository personRepository,DatesRepository datesRepository) {
+	public CommandLineRunner demo(VehiculeRepository vehiculeRepository) {
 		return (args) -> {
 			Person tintin = new Person();
 			tintin.setAge(20);
@@ -57,8 +57,6 @@ public class RentMyCarApplication {
 			car_1.setPrice(23400);
 			car_1.setnumberOfSeats(4);
 			
-			kamy.addDates(date);
-			tintin.addDates(date_2);
 		 
 			
 			van_1.setDates(date_2);
@@ -72,8 +70,8 @@ public class RentMyCarApplication {
 			
 			date.setVehicule(car_1);
 		
-			datesRepository.save(date);
-			datesRepository.save(date_2);
+			vehiculeRepository.save(van_1);
+			vehiculeRepository.save(car_1);
 
 		};
 	}

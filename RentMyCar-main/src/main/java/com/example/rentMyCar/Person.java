@@ -6,9 +6,10 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Person {
@@ -35,7 +36,8 @@ public class Person {
         this.age = age;
     }
     
-    @OneToMany(mappedBy="person", cascade= CascadeType.ALL)
+    @OneToMany(mappedBy="person")
+    @JsonIgnore
    	public Collection<Dates> getDates() {
    		return dates;
    	}

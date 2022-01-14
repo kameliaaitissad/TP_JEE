@@ -1,14 +1,9 @@
 package com.example.rentMyCar;
 
-import java.util.ArrayList;
-import java.util.Collection;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.OneToOne;
+
 @Entity
 public class Car extends Vehicule {
 	private int numberOfSeats;
@@ -39,7 +34,10 @@ public class Car extends Vehicule {
 	}
 	
 	public String toString() {
-		return "Car [plateNumber=" + super.getPlateNumber() + ", brand=" + super.getBrand() + ", price=" + super.getPrice() + ", number of Seats =" + numberOfSeats + "]";
+		return "Car [plateNumber=" + super.getPlateNumber() 
+				+ ", brand=" + super.getBrand()
+				+ ", price=" + super.getPrice() 
+				+ ", number of Seats =" + numberOfSeats + "]\n";
 	}
 	
 }

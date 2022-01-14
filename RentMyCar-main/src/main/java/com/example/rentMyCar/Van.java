@@ -33,7 +33,10 @@ public class Van extends Vehicule{
 	
 	@Override
 	public String toString() {
-		return "Van [plateNumber=" + super.getPlateNumber() + ", brand=" + super.getBrand() + ", price=" + super.getPrice() + ", max Weight=" + maxWeight + "]";
+		return "Van [plateNumber=" + super.getPlateNumber() 
+				+ ", brand=" + super.getBrand() 
+				+ ", price=" + super.getPrice() 
+				+ ", max Weight=" + maxWeight + "]\n";
 	}
 	
 	

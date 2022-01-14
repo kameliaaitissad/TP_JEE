@@ -2,43 +2,44 @@ package com.example.rentMyCar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.http.HttpEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class CarRentalService {
 	
-	private List<Vehicule> Vehicules = new ArrayList<Vehicule>();
+	//private List<Vehicule> Vehicules = new ArrayList<Vehicule>();
+	private VehiculeRepository vehiculeRepository;
 	
-	public CarRentalService() {
-		Vehicules.add(new Vehicule("11AA22", "Ferrari", 1000));
-		Vehicules.add(new Vehicule("33BB44", "Porshe", 2222));
+	@Autowired
+	public CarRentalService(VehiculeRepository vehiculeRepository) {
+		this.vehiculeRepository = vehiculeRepository;
+		/*Vehicules.add(new Vehicule("11AA22", "Ferrari", 1000));
+		Vehicules.add(new Vehicule("33BB44", "Porshe", 2222));*/
 	}
 	
 	@GetMapping("/Vehicules")
-	public List<Vehicule> getListOfVehicules(){
-		return Vehicules;
-	}
 	
+	@ResponseBody
+	public Iterable<Vehicule> getListOfVehicules(){
+		return vehiculeRepository.findAll();
+		}
+	
+ 
 	@PostMapping("/Vehicules")
 	public void addVehicule(@RequestBody Vehicule Vehicule) throws Exception{
 		System.out.println(Vehicule);
-		Vehicules.add(Vehicule);
+		vehiculeRepository.save(Vehicule);
 	}
 
 	@GetMapping("/Vehicules/{plateNumber}")
 	public Vehicule getVehicule(@PathVariable(value = "plateNumber") String plateNumber){
-		for(Vehicule Vehicule: Vehicules){
-			if(Vehicule.getPlateNumber().equals(plateNumber)){
-				return Vehicule;
-			}
-		}
-		return null;
+		return vehiculeRepository.findById(plateNumber).get();
 	}
 
 	@PutMapping(value = "/Vehicules/{plateNumber}")
@@ -49,19 +50,19 @@ public class CarRentalService {
 		System.out.println(rented);
 		System.out.println(dates);
 		
-		for(Vehicule Vehicule: Vehicules){
-			if(Vehicule.getPlateNumber().equals(plaque)){
-				if(Vehicule.isRented()==false) {
-					Vehicule.setRented(rented);
-					Vehicule.setDates(dates);
-					
-				}
-				return;
+			if(vehiculeRepository.findById(plaque) != null){
+				Vehicule vehicule = vehiculeRepository.findById(plaque).get();			
+					if(vehicule.isRented()==false) {
+						vehicule.setRented(rented);
+						vehicule.setDates(dates);
+					}				
 			} 		 
-		}
-		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Foo Not Found");
+		
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Il n'y a pas de voiture avec ce matricule");
 		 
 	
-	}
+	} 
+	
+	
 
 }

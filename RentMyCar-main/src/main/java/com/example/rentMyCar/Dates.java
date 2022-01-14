@@ -1,9 +1,5 @@
 package com.example.rentMyCar;
 
-
-
-
-
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -12,8 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Dates {
@@ -24,11 +21,9 @@ public class Dates {
     Vehicule vehicule;
     Person person;
     
-   
-    
-	
-    
-    @OneToOne(cascade=CascadeType.ALL)
+ 
+    @OneToOne
+    @JsonIgnore
     public Vehicule getVehicule() {
     	return vehicule;
     }
@@ -75,9 +70,9 @@ public class Dates {
 	
     @Override
     public String toString() {
-        return "Dates{" +
+        return "Dates[" +
                 "begin='" + begin + '\'' +
                 ", end='" + end + '\'' +
-                '}';
+                "]\n";
     }
 }
